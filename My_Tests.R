@@ -1,5 +1,5 @@
 
-# might not need all these libraries but ¯\_(???)_/¯
+# might not need all these libraries but *shrugs*
 library(DescTools)
 library(lmtest)
 library(ggplot2)
