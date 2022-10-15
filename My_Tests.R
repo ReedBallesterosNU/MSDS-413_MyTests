@@ -27,6 +27,8 @@ library(TSA)
 # - use at your discretion
 # - may contain bugs/errors/changes
 # - far from perfect; to be used as growing learning tool/reference
+# - collaborative changes/submissions to help improve this script
+#     is more than welcome, thank your for your support! =)
 
 
 
