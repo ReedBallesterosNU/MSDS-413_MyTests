@@ -13,8 +13,8 @@ library(TSA)
 
 
 
-# - the functions below are just simple wrappers for various time-series data 
-#   tests to help me understand the results in a more layman's perspective
+# - the functions below are just simple wrappers for various time-series data
+#   tests to help understand the results in a more layman's perspective
 # - (most) tests below are tested against their respective null hypothesis (H0)
 #     TRUE: FAIL to reject H0
 #     FALSE: reject H0
