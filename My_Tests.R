@@ -46,6 +46,7 @@ library(TSA)
 #   - myadftest - updated with drift explanation 
 # v0.03:
 #   - emphasized *NO*/*NOT*/*FAIL* in documentation for visibility
+#   - updated KPSS/ADF information
 
 
 
@@ -169,9 +170,9 @@ mykpsstest <- function(data, print_output=TRUE) {
   if (print_output) {
     print(summary(kpss_data))
     if(result)
-      print("KPSS: *NO* unit roots, *NO* linear trend, series is trend stationary -> *FAIL* to reject H0")
+      print("KPSS: *NO* unit roots, *NO* linear trend, slope zero, series is trend stationary -> *FAIL* to reject H0")
     else
-      print("KPSS: contains unit roots, has linear trend, series *NOT* trend stationary -> reject H0")
+      print("KPSS: contains unit roots, linear trend present, slope *NOT* zero, series *NOT* trend stationary -> reject H0")
   }
   # TRUE: FAIL to reject H0
   # FALSE: reject H0
@@ -198,9 +199,9 @@ myadftest <- function(data,print_output=TRUE,lags=30) {
   if (print_output) {
     print(adf_data)
     if(result)
-      print(sprintf("ADF: presence of unit roots over %i lags, indicates mean drift, business cycles present, series is *NOT* random walk stationary -> *FAIL* to reject H0", lags))
+      print(sprintf("ADF: presence of unit roots over %i lags, indicates mean drift, business cycles present, series is *NOT* stationary -> *FAIL* to reject H0", lags))
     else
-      print(sprintf("ADF: contains *NO* unit roots over %i lags, indicates *NO* mean drift, business cycles *NOT* present, series is random walk stationary -> reject H0", lags))
+      print(sprintf("ADF: contains *NO* unit roots over %i lags, indicates *NO* mean drift, business cycles *NOT* present, series is stationary -> reject H0", lags))
   }
   # turn warnings back on
   options(warn = defaultW)
