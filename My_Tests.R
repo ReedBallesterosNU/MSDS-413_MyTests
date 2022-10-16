@@ -44,6 +44,8 @@ library(TSA)
 #   - removed TRUE/FALSE comments for each test:
 #       refer to print statement for each test based on (result)
 #   - myadftest - updated with drift explanation 
+# v0.03:
+#   - emphasized *NO*/*NOT*/*FAIL* in documentation for visibility
 
 
 
@@ -66,9 +68,9 @@ myttest <- function(data, print_output=TRUE) {
   if (print_output) {
     print(ttest_data)
     if(result)
-      print("T-Test: mean is statistically zero, linear trend removed -> FAIL to reject H0")
+      print("T-Test: mean is statistically zero, linear trend *REMOVED* -> *FAIL* to reject H0")
     else
-      print("T-Test: mean NOT statistically zero, linear trend present -> reject H0")
+      print("T-Test: mean *NOT* statistically zero, linear trend present -> reject H0")
   }
   # TRUE: FAIL to reject H0
   # FALSE: reject H0
@@ -92,9 +94,9 @@ myskewtest <- function(data, print_output=TRUE) {
   if (print_output) {
     print(skew_data)
     if(result)
-      print("Skew: NO skewness, property conforms to normality and Gaussian PDF")
+      print("Skew: *NO* skewness, property conforms to normality and Gaussian PDF")
     else
-      print("Skew: has skewness, property does NOT conform to normality and Gaussian PDF")
+      print("Skew: has skewness, property does *NOT* conform to normality and Gaussian PDF")
   }
   # TRUE: NO skewness
   # FALSE: has skewness
@@ -118,9 +120,9 @@ mykurttest <- function(data, print_output=TRUE) {
   if (print_output) {
     print(kurt_data)
     if(result)
-      print("Kurt: NO kurtosis, property conforms to normality and Gaussian PDF")
+      print("Kurt: *NO* (excess) kurtosis, property conforms to normality and Gaussian PDF")
     else
-      print("Kurt: has (excess) kurtosis, property does NOT conform to normality and Gaussian PDF")
+      print("Kurt: has (excess) kurtosis, property does *NOT* conform to normality and Gaussian PDF")
   }
   # TRUE: NO kurtosis
   # FALSE: has kurtosis
@@ -143,7 +145,7 @@ myboxljungtest <- function(data,print_output=TRUE,lags=30) {
   if (print_output) {
     print(bl_data)
     if(result)
-      print(sprintf("Box-Ljung: implies independence over %i lags, NO autocorrelation -> FAIL to reject H0", lags))
+      print(sprintf("Box-Ljung: implies independence over %i lags, *NO* autocorrelation -> *FAIL* to reject H0", lags))
     else
       print(sprintf("Box-Ljung: implies dependency present over %i lags, autocorrelation present -> reject H0", lags))
   }
@@ -167,9 +169,9 @@ mykpsstest <- function(data, print_output=TRUE) {
   if (print_output) {
     print(summary(kpss_data))
     if(result)
-      print("KPSS: NO unit roots, NO linear trend, series is trend stationary -> FAIL to reject H0")
+      print("KPSS: *NO* unit roots, *NO* linear trend, series is trend stationary -> *FAIL* to reject H0")
     else
-      print("KPSS: contains unit roots, has linear trend, series NO trend stationary -> reject H0")
+      print("KPSS: contains unit roots, has linear trend, series *NOT* trend stationary -> reject H0")
   }
   # TRUE: FAIL to reject H0
   # FALSE: reject H0
@@ -196,9 +198,9 @@ myadftest <- function(data,print_output=TRUE,lags=30) {
   if (print_output) {
     print(adf_data)
     if(result)
-      print(sprintf("ADF: presence of unit roots over %i lags, indicates mean drift, business cycles present, series is NOT random walk stationary -> FAIL to reject H0", lags))
+      print(sprintf("ADF: presence of unit roots over %i lags, indicates mean drift, business cycles present, series is *NOT* random walk stationary -> *FAIL* to reject H0", lags))
     else
-      print(sprintf("ADF: contains NO unit roots over %i lags, indicates NO mean drift, business cycles NOT present, series is random walk stationary -> reject H0", lags))
+      print(sprintf("ADF: contains *NO* unit roots over %i lags, indicates *NO* mean drift, business cycles *NOT* present, series is random walk stationary -> reject H0", lags))
   }
   # turn warnings back on
   options(warn = defaultW)
@@ -222,9 +224,9 @@ mymcleodlitest <- function(model, print_output=TRUE) {
   if (print_output) {
     ml_m
     if(result)
-      print("McLeod-Li: constant variance, homoscedastic -> FAIL to reject H0")
+      print("McLeod-Li: constant variance, homoscedastic -> *FAIL* to reject H0")
     else
-      print("McLeod-Li: NON-constant variance, heteroscedastic -> reject H0")
+      print("McLeod-Li: *NON*-constant variance, heteroscedastic -> reject H0")
   }
   # TRUE: FAIL to reject H0
   # FALSE: reject H0
@@ -246,9 +248,9 @@ mybptest <- function(data, print_output=TRUE) {
   if (print_output) {
     print(bp_data)
     if(result)
-      print("Breusch-Pagan: constant variance, homoscedastic -> FAIL to reject H0")
+      print("Breusch-Pagan: constant variance, homoscedastic -> *FAIL* to reject H0")
     else
-      print("Breusch-Pagan: NON-constant variance, possible clustering, heteroscedastic -> reject H0")
+      print("Breusch-Pagan: *NON*-constant variance, possible clustering, heteroscedastic -> reject H0")
   }
   # TRUE: FAIL to reject H0
   # FALSE: reject H0
