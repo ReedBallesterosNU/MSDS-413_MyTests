@@ -47,6 +47,8 @@ library(TSA)
 # v0.03:
 #   - emphasized *NO*/*NOT*/*FAIL* in documentation for visibility
 #   - updated KPSS/ADF information
+#   - myskewtest: added left/right Skewness output 
+#   - mykurttest: added flat/tall (excess) Kurtosis output
 
 
 
