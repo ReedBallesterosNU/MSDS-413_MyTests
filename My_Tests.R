@@ -88,8 +88,6 @@ myttest <- function(data, print_output=TRUE) {
 myskewtest <- function(data, print_output=TRUE) {
   # Skew: test for NO skew
   # Skew() test for 0: check if 95% confidence interval ([2] lower, [3] upper) contains zero
-  # NOTE: does NOT check left/right skewness, 
-  #   look at test output to determine (print_output=TRUE)
   skew_data <- Skew(data, method = 3, conf.level = 0.05, ci.type = "norm", R = 1000)
   result <- skew_data[2] <=0 && skew_data[3] >=0
   if (print_output) {
@@ -97,7 +95,11 @@ myskewtest <- function(data, print_output=TRUE) {
     if(result)
       print("Skew: *NO* skewness, property conforms to normality and Gaussian PDF")
     else
-      print("Skew: has skewness, property does *NOT* conform to normality and Gaussian PDF")
+    {
+      skewType <- "LEFT"
+      if (skew_data[1] > 0) skewType <- "RIGHT"
+      print(sprintf("Skew: has *%s* skewness, property does *NOT* conform to normality and Gaussian PDF", skewType))
+    }
   }
   # TRUE: NO skewness
   # FALSE: has skewness
@@ -114,16 +116,17 @@ myskewtest <- function(data, print_output=TRUE) {
 mykurttest <- function(data, print_output=TRUE) {
   # Kurtosis: test for NO (excess) Kurtosis
   # Kurt() test for 0: check if 95% confidence interval ([2] lower, [3] upper) contains zero
-  # NOTE: result does NOT indicate flat (thin tails)/high (fat tails) Kurtosis, 
-  #   look at test output to determine (print_output=TRUE)
   kurt_data <- Kurt(data, method = 3, conf.level = 0.05, ci.type = "norm", R = 1000)
   result <- kurt_data[2] <=0 && kurt_data[3] >=0
   if (print_output) {
     print(kurt_data)
     if(result)
       print("Kurt: *NO* (excess) kurtosis, property conforms to normality and Gaussian PDF")
-    else
-      print("Kurt: has (excess) kurtosis, property does *NOT* conform to normality and Gaussian PDF")
+    else {
+      kurtType <- "FLAT thin-tailed"
+      if (kurt_data[1] > 0) kurtType <- "TALL thick-tailed"
+      print(sprintf("Kurt: has *%s* (excess) kurtosis, property does *NOT* conform to normality and Gaussian PDF", kurtType))
+    }
   }
   # TRUE: NO kurtosis
   # FALSE: has kurtosis
