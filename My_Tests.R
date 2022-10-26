@@ -1,13 +1,7 @@
-
-# might not need all these libraries but *shrugs*
 library(DescTools)
 library(lmtest)
-library(ggplot2)
 library(fBasics)
-library(fpp3)
-library(forecast)
 library(urca)
-library(NTS)
 library(fUnitRoots)
 library(TSA)
 
@@ -49,6 +43,10 @@ library(TSA)
 #   - updated KPSS/ADF information
 #   - myskewtest: added left/right Skewness output 
 #   - mykurttest: added flat/tall (excess) Kurtosis output
+# v0.04:
+#   - library cleanup
+#   - mymcleodlitest: output lags with p-value < 0.05
+#   - minor fixes
 
 
 
@@ -225,14 +223,19 @@ myadftest <- function(data,print_output=TRUE,lags=30) {
 mymcleodlitest <- function(model, print_output=TRUE) {
   # Constant Variance: McLeod-Li Test
   # McLeod.Li.test() test: check to see if all lags' p-values ($p.values) are greater than 0.05 (H0)
-  ml_m <- McLeod.Li.test(model) 
-  result <- length(which(ml_m$p.values < 0.05)) == 0
+  ml_m <- McLeod.Li.test(model)
+  lagsUnder <- which(ml_m$p.values < 0.05)
+  result <- length(lagsUnder) == 0
   if (print_output) {
-    ml_m
-    if(result)
-      print("McLeod-Li: constant variance, homoscedastic -> *FAIL* to reject H0")
-    else
-      print("McLeod-Li: *NON*-constant variance, heteroscedastic -> reject H0")
+    if(result) {
+      cat("McLeod-Li: constant variance, homoscedastic -> *FAIL* to reject H0\n")
+      cat(sprintf("McLeod-Li: Lags >= 0.05:\n  (none)\n"))
+    }
+    else{
+      cat("McLeod-Li: *NON*-constant variance, heteroscedastic -> reject H0\n")
+      lags <- paste(lagsUnder,collapse = ',')
+      cat(sprintf("McLeod-Li: Lags < 0.05:\n%s\n",lags))
+    }
   }
   # TRUE: FAIL to reject H0
   # FALSE: reject H0
